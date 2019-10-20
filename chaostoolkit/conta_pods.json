@@ -1,9 +1,9 @@
 {
     "version": "1.0.0",
-    "title": "Teste saude MS",
-    "description": "N/A",
+    "title": "Teste Contagem de PODS",
+    "description": "Teste de prova de Conceito, onde desejamos um numero fixo de PODs, e alteramos no decorrer do teste, esperando que um erro seja apontado",
     "steady-state-hypothesis": {
-        "title": "TUDO vai ficar OK",
+        "title": "Contando inicialmentes quantos pods temos em pe",
         "probes": [
             {
                 "type": "probe",
@@ -37,7 +37,7 @@
     "method": [
         {
             "type": "action",
-            "name": "Reescala o numero de PODs",
+            "name": "Reescala o numero de PODs para 6",
             "provider": {
                 "type": "process",
                 "path": "kubectl",
@@ -51,7 +51,7 @@
     "rollbacks": [
         {
             "type": "action",
-            "name": "Reescala para condicoes normais",
+            "name": "Volta pods quantidade de pods para as condicoes normais",
             "provider": {
                 "type": "process",
                 "path": "kubectl",
