@@ -1,0 +1,56 @@
+{
+    "version": "1.0.0",
+    "title": "Nos esperamos um determinado fluxo de mensagens",
+    "description": "Nós analisamos se o fluxo de mensagens atual é a esperada",
+    "steady-state-hypothesis": {
+        "title": "Nossa hipotese é que circulem entre 9 e 13 mensagens a cada 10 segundos",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "Executando script que retorna quantas mensagens passaram em 10 segundos",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "sh",
+                    "arguments": "count_messages.sh"
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Conta novamente o número de mensagens em 10 segundos para verificar se continua aceitável",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "\"[9]|[1][0-3]\" output.log"
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "Insere um delay network",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc add dev enp0s3 root netem delay 500ms 20ms distribution normal"
+            }
+        }
+    ],
+    "rollbacks": [
+        {
+            "type": "action",
+            "name": "reverting delay",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc del dev enp0s3 root netem"
+            }
+        }
+    ]
+}

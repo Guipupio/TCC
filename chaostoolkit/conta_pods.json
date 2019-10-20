@@ -1,0 +1,62 @@
+{
+    "version": "1.0.0",
+    "title": "Teste saude MS",
+    "description": "N/A",
+    "steady-state-hypothesis": {
+        "title": "TUDO vai ficar OK",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "Contando Numeros de PODs de PROVEDORES",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "sh",
+                    "arguments": "get_num_pods_provider.sh"
+                },
+                "pauses": {
+                    "after": 1
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Verifica A quantidade de PODs dos Provedores",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "'1/1' num_pods.log"
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "Reescala o numero de PODs",
+            "provider": {
+                "type": "process",
+                "path": "kubectl",
+                "arguments": "scale deployment --replicas=6 my-provider-app"
+            },
+            "pauses": {
+                "after": 10
+            }
+        }
+    ],
+    "rollbacks": [
+        {
+            "type": "action",
+            "name": "Reescala para condicoes normais",
+            "provider": {
+                "type": "process",
+                "path": "kubectl",
+                "arguments": "scale deployment --replicas=1 my-provider-app"
+            }
+        }
+    ]
+}
