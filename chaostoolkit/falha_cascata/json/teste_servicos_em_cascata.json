@@ -29,7 +29,7 @@
                 "provider": {
                     "type": "process",
                     "path": "egrep",
-                    "arguments": "'200' num_pods.log"
+                    "arguments": "'200' status_consumidor.log"
                 }
             }
         ]
@@ -41,7 +41,7 @@
             "provider": {
                 "type": "process",
                 "path": "kubectl",
-                "arguments": "delete deployments.apps my-provider-app"
+                "arguments": "scale deployment --replicas=0 my-provider-app "
             },
             "pauses": {
                 "after": 10
@@ -55,7 +55,7 @@
             "provider": {
                 "type": "process",
                 "path": "kubectl",
-                "arguments": "scale deployment --replicas=1 my-provider-app"
+                "arguments": "scale deployment --replicas=2 my-provider-app"
             }
         }
     ]
