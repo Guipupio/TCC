@@ -41,14 +41,14 @@
     "method": [
       {
         "type": "action",
-        "name": "Mata o Servico Consumidor",
+        "name": "Mata o Servico Provedor",
         "provider": {
           "type": "process",
           "path": "kubectl",
           "arguments": "scale deployment --replicas=0 my-provider-app "
         },
         "pauses": {
-          "after": 10
+          "after": 20
         }
       }
     ],
@@ -65,9 +65,9 @@
     ],
     "dry": false
   },
-  "start": "2019-10-21T01:23:52.984899",
-  "status": "completed",
-  "deviated": false,
+  "start": "2019-10-21T01:49:28.981826",
+  "status": "failed",
+  "deviated": true,
   "steady_states": {
     "before": {
       "steady_state_met": true,
@@ -94,9 +94,9 @@
             "stderr": ""
           },
           "status": "succeeded",
-          "start": "2019-10-21T01:23:52.985307",
-          "end": "2019-10-21T01:23:53.020674",
-          "duration": 0.035367,
+          "start": "2019-10-21T01:49:28.982187",
+          "end": "2019-10-21T01:49:29.010945",
+          "duration": 0.028758,
           "tolerance_met": true
         },
         {
@@ -118,15 +118,15 @@
             "stderr": ""
           },
           "status": "succeeded",
-          "start": "2019-10-21T01:23:54.022916",
-          "end": "2019-10-21T01:23:54.030801",
-          "duration": 0.007885,
+          "start": "2019-10-21T01:49:30.013043",
+          "end": "2019-10-21T01:49:30.021617",
+          "duration": 0.008574,
           "tolerance_met": true
         }
       ]
     },
     "after": {
-      "steady_state_met": true,
+      "steady_state_met": false,
       "probes": [
         {
           "activity": {
@@ -150,9 +150,9 @@
             "stderr": ""
           },
           "status": "succeeded",
-          "start": "2019-10-21T01:24:04.134595",
-          "end": "2019-10-21T01:24:04.159074",
-          "duration": 0.024479,
+          "start": "2019-10-21T01:49:50.163096",
+          "end": "2019-10-21T01:50:00.202308",
+          "duration": 10.039212,
           "tolerance_met": true
         },
         {
@@ -169,15 +169,15 @@
             }
           },
           "output": {
-            "status": 0,
-            "stdout": "200\n",
+            "status": 1,
+            "stdout": "",
             "stderr": ""
           },
           "status": "succeeded",
-          "start": "2019-10-21T01:24:05.161391",
-          "end": "2019-10-21T01:24:05.169056",
-          "duration": 0.007665,
-          "tolerance_met": true
+          "start": "2019-10-21T01:50:01.204458",
+          "end": "2019-10-21T01:50:01.211876",
+          "duration": 0.007418,
+          "tolerance_met": false
         }
       ]
     }
@@ -186,14 +186,14 @@
     {
       "activity": {
         "type": "action",
-        "name": "Mata o Servico Consumidor",
+        "name": "Mata o Servico Provedor",
         "provider": {
           "type": "process",
           "path": "kubectl",
           "arguments": "scale deployment --replicas=0 my-provider-app "
         },
         "pauses": {
-          "after": 10
+          "after": 20
         }
       },
       "output": {
@@ -202,9 +202,9 @@
         "stderr": ""
       },
       "status": "succeeded",
-      "start": "2019-10-21T01:23:54.031386",
-      "end": "2019-10-21T01:23:54.129772",
-      "duration": 0.098386
+      "start": "2019-10-21T01:49:30.022475",
+      "end": "2019-10-21T01:49:30.142352",
+      "duration": 0.119877
     }
   ],
   "rollbacks": [
@@ -224,11 +224,11 @@
         "stderr": ""
       },
       "status": "succeeded",
-      "start": "2019-10-21T01:24:05.169918",
-      "end": "2019-10-21T01:24:05.265958",
-      "duration": 0.09604
+      "start": "2019-10-21T01:50:01.212802",
+      "end": "2019-10-21T01:50:01.304586",
+      "duration": 0.091784
     }
   ],
-  "end": "2019-10-21T01:24:05.266409",
-  "duration": 12.282288074493408
+  "end": "2019-10-21T01:50:01.305115",
+  "duration": 32.32415151596069
 }
