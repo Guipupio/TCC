@@ -7,7 +7,7 @@ IP_ENCONTRADO=$(echo "$HOSTS_MICRO_SERVICO" | tr " " "\n" | grep http)
 # Obtem Porta [0-9  ]
 PORT_ENCONTRADA=$(echo "$HOSTS_MICRO_SERVICO" | tr ":" "\n" | grep "[0-9]\{5\}")
 # Define a URL de Acesso
-export URL="$IP_ENCONTRADO:$PORT_ENCONTRADA"
+export URL="$IP_ENCONTRADO:$PORT_ENCONTRADA/invokeConsumedService"
 
 # Ativa virtualEnv e # Inicia teste do chaos toolkit
 activate && chaos run /home/guicpupio/tcc/chaostoolkit/falha_cascata/json/teste_servicos_em_cascata.json
