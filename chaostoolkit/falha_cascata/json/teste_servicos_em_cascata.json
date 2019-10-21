@@ -37,14 +37,14 @@
     "method": [
         {
             "type": "action",
-            "name": "Mata o Servico Consumidor",
+            "name": "Mata o Servico Provedor",
             "provider": {
                 "type": "process",
                 "path": "kubectl",
                 "arguments": "scale deployment --replicas=0 my-provider-app "
             },
             "pauses": {
-                "after": 10
+                "after": 20
             }
         }
     ],
