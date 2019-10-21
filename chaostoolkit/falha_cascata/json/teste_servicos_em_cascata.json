@@ -3,18 +3,18 @@
     "title": "Derrubando os micro servico provedor, a aplicacao se mantem em pe",
     "description": "Ao derrubar o micro servico provedor ",
     "steady-state-hypothesis": {
-        "title": "Contando inicialmentes quantos pods temos em pe",
+        "title": "Verificando Status do Servico Consumidor",
         "probes": [
             {
                 "type": "probe",
-                "name": "Contando Numeros de PODs de PROVEDORES",
+                "name": "Comunicando com Servico Consumidor",
                 "tolerance": [
                     0
                 ],
                 "provider": {
                     "type": "process",
                     "path": "sh",
-                    "arguments": "get_num_pods_provider.sh"
+                    "arguments": "get-info-consumidor.sh"
                 },
                 "pauses": {
                     "after": 1
@@ -22,14 +22,14 @@
             },
             {
                 "type": "probe",
-                "name": "Verifica A quantidade de PODs dos Provedores",
+                "name": "Verifica status da resposta do consumidor",
                 "tolerance": [
                     0
                 ],
                 "provider": {
                     "type": "process",
                     "path": "egrep",
-                    "arguments": "'1/1' num_pods.log"
+                    "arguments": "'200' num_pods.log"
                 }
             }
         ]
@@ -37,11 +37,11 @@
     "method": [
         {
             "type": "action",
-            "name": "Reescala o numero de PODs para 6",
+            "name": "Mata o Servico Consumidor",
             "provider": {
                 "type": "process",
                 "path": "kubectl",
-                "arguments": "scale deployment --replicas=6 my-provider-app"
+                "arguments": "delete deployments.apps my-provider-app"
             },
             "pauses": {
                 "after": 10
@@ -51,7 +51,7 @@
     "rollbacks": [
         {
             "type": "action",
-            "name": "Volta pods quantidade de pods para as condicoes normais",
+            "name": "Restaura o Servico Consumidor ",
             "provider": {
                 "type": "process",
                 "path": "kubectl",
