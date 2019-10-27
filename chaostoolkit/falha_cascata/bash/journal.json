@@ -1,0 +1,234 @@
+{
+  "chaoslib-version": "1.7.1",
+  "platform": "Linux-5.0.0-1020-gcp-x86_64-with-Ubuntu-18.04-bionic",
+  "node": "instance-1",
+  "experiment": {
+    "version": "1.0.0",
+    "title": "Derrubando os micro servico provedor, a aplicacao se mantem em pe",
+    "description": "Ao derrubar o micro servico provedor ",
+    "steady-state-hypothesis": {
+      "title": "Verificando Status do Servico Consumidor",
+      "probes": [
+        {
+          "type": "probe",
+          "name": "Comunicando com Servico Consumidor",
+          "tolerance": [
+            0
+          ],
+          "provider": {
+            "type": "process",
+            "path": "sh",
+            "arguments": "get-info-consumidor.sh"
+          },
+          "pauses": {
+            "after": 1
+          }
+        },
+        {
+          "type": "probe",
+          "name": "Verifica status da resposta do consumidor",
+          "tolerance": [
+            0
+          ],
+          "provider": {
+            "type": "process",
+            "path": "egrep",
+            "arguments": "'200' status_consumidor.log"
+          }
+        }
+      ]
+    },
+    "method": [
+      {
+        "type": "action",
+        "name": "Mata o Servico Provedor",
+        "provider": {
+          "type": "process",
+          "path": "kubectl",
+          "arguments": "scale deployment --replicas=0 my-provider-app "
+        },
+        "pauses": {
+          "after": 20
+        }
+      }
+    ],
+    "rollbacks": [
+      {
+        "type": "action",
+        "name": "Restaura o Servico Consumidor ",
+        "provider": {
+          "type": "process",
+          "path": "kubectl",
+          "arguments": "scale deployment --replicas=2 my-provider-app"
+        }
+      }
+    ],
+    "dry": false
+  },
+  "start": "2019-10-21T01:49:28.981826",
+  "status": "failed",
+  "deviated": true,
+  "steady_states": {
+    "before": {
+      "steady_state_met": true,
+      "probes": [
+        {
+          "activity": {
+            "type": "probe",
+            "name": "Comunicando com Servico Consumidor",
+            "tolerance": [
+              0
+            ],
+            "provider": {
+              "type": "process",
+              "path": "sh",
+              "arguments": "get-info-consumidor.sh"
+            },
+            "pauses": {
+              "after": 1
+            }
+          },
+          "output": {
+            "status": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "status": "succeeded",
+          "start": "2019-10-21T01:49:28.982187",
+          "end": "2019-10-21T01:49:29.010945",
+          "duration": 0.028758,
+          "tolerance_met": true
+        },
+        {
+          "activity": {
+            "type": "probe",
+            "name": "Verifica status da resposta do consumidor",
+            "tolerance": [
+              0
+            ],
+            "provider": {
+              "type": "process",
+              "path": "egrep",
+              "arguments": "'200' status_consumidor.log"
+            }
+          },
+          "output": {
+            "status": 0,
+            "stdout": "200\n",
+            "stderr": ""
+          },
+          "status": "succeeded",
+          "start": "2019-10-21T01:49:30.013043",
+          "end": "2019-10-21T01:49:30.021617",
+          "duration": 0.008574,
+          "tolerance_met": true
+        }
+      ]
+    },
+    "after": {
+      "steady_state_met": false,
+      "probes": [
+        {
+          "activity": {
+            "type": "probe",
+            "name": "Comunicando com Servico Consumidor",
+            "tolerance": [
+              0
+            ],
+            "provider": {
+              "type": "process",
+              "path": "sh",
+              "arguments": "get-info-consumidor.sh"
+            },
+            "pauses": {
+              "after": 1
+            }
+          },
+          "output": {
+            "status": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "status": "succeeded",
+          "start": "2019-10-21T01:49:50.163096",
+          "end": "2019-10-21T01:50:00.202308",
+          "duration": 10.039212,
+          "tolerance_met": true
+        },
+        {
+          "activity": {
+            "type": "probe",
+            "name": "Verifica status da resposta do consumidor",
+            "tolerance": [
+              0
+            ],
+            "provider": {
+              "type": "process",
+              "path": "egrep",
+              "arguments": "'200' status_consumidor.log"
+            }
+          },
+          "output": {
+            "status": 1,
+            "stdout": "",
+            "stderr": ""
+          },
+          "status": "succeeded",
+          "start": "2019-10-21T01:50:01.204458",
+          "end": "2019-10-21T01:50:01.211876",
+          "duration": 0.007418,
+          "tolerance_met": false
+        }
+      ]
+    }
+  },
+  "run": [
+    {
+      "activity": {
+        "type": "action",
+        "name": "Mata o Servico Provedor",
+        "provider": {
+          "type": "process",
+          "path": "kubectl",
+          "arguments": "scale deployment --replicas=0 my-provider-app "
+        },
+        "pauses": {
+          "after": 20
+        }
+      },
+      "output": {
+        "status": 0,
+        "stdout": "deployment.apps/my-provider-app scaled\n",
+        "stderr": ""
+      },
+      "status": "succeeded",
+      "start": "2019-10-21T01:49:30.022475",
+      "end": "2019-10-21T01:49:30.142352",
+      "duration": 0.119877
+    }
+  ],
+  "rollbacks": [
+    {
+      "activity": {
+        "type": "action",
+        "name": "Restaura o Servico Consumidor ",
+        "provider": {
+          "type": "process",
+          "path": "kubectl",
+          "arguments": "scale deployment --replicas=2 my-provider-app"
+        }
+      },
+      "output": {
+        "status": 0,
+        "stdout": "deployment.apps/my-provider-app scaled\n",
+        "stderr": ""
+      },
+      "status": "succeeded",
+      "start": "2019-10-21T01:50:01.212802",
+      "end": "2019-10-21T01:50:01.304586",
+      "duration": 0.091784
+    }
+  ],
+  "end": "2019-10-21T01:50:01.305115",
+  "duration": 32.32415151596069
+}
