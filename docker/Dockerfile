@@ -5,3 +5,4 @@ WORKDIR /aplication
 COPY webserver/requirements.txt /aplication/
 RUN pip install -r requirements.txt
 COPY webserver /aplication/
+CMD ["python", "/aplication/manage.py",  "runserver" ,"0.0.0.0:80"]
