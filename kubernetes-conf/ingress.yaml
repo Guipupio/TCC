@@ -9,7 +9,7 @@ spec:
   - host: pupio.paulo.tcc
     http:
       paths:
-        - path: / 
+        - path: /webapp1
           backend:
             serviceName: webapp-svc
             servicePort: 80
