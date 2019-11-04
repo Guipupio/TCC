@@ -3,6 +3,7 @@ import os
 from django.http import JsonResponse
 from django.shortcuts import render
 
+from datetime import datetime
 
 def home(request):
     context = {
@@ -12,3 +13,7 @@ def home(request):
 
 def get_hostname(request):
     return JsonResponse({'Hostname': os.environ['HOSTNAME'] } )
+
+
+def home_json(request):
+    return JsonResponse({'Hora de Acesso: ': datetime.now()})
