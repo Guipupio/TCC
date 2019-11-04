@@ -19,5 +19,6 @@ from webserver import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home_page')
+    path('', views.home, name='home_page'),
+    path('pod_name/', views.get_hostname, 'get_hostname')
 ]
