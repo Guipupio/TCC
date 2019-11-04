@@ -1,4 +1,4 @@
-from os import environ
+import os
 
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -11,4 +11,4 @@ def home(request):
     return render(request, 'webserver/index.html', context)
 
 def get_hostname(request):
-    return JsonResponse({'Hostname': environ['HOSTNAME'] } )
+    return JsonResponse({'Hostname': os.environ['HOSTNAME'] } )
