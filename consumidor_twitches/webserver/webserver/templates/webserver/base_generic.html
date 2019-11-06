@@ -111,6 +111,17 @@
         <!-- partial -->
         <div class="main-panel">
           <div class="content-wrapper p-3 has-inner-drawer">
+            <div class="page-header">
+              <h3 class="page-title">
+                {% comment %} <span class="page-title-icon bg-gradient-primary text-white mr-2">
+                  <i class="mdi mdi-home"></i>
+                  
+                </span> {% endcomment %}
+                  {% block page_name %}
+                    Dashboard
+                  {% endblock page_name%} 
+              </h3>
+            </div>
             {% block main %}
             {% endblock %}
           </div>
