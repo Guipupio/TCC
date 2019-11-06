@@ -3,10 +3,22 @@ import os
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from datetime import datetime
+from datetime import datetime, timedelta
 from webserver.settings import BD_INFO
 
 from webserver.connect_db_twitter import conecta_com_mysql, obtem_lista_twitches
+
+# Decorador para obter tempo de resposta das funcoes
+def get_tempo_exec(func):
+    def calcula_tempo(*args, **kwargs):
+        t_init = time()
+        resultado = func(*args, **kwargs)
+        t_fim = time()
+
+        tempo_execucao = t_fim - t_init
+        # obtem a url da pagina
+        return (resultado, tempo_execucao)
+    return calcula_tempo
 
 def home(request):
     context = {
@@ -39,6 +51,11 @@ def home_json(request):
     return JsonResponse({'Hora de Acesso: ': datetime.now()})
 
 def get_twitches(request):
+    """
+        Realiza consulta no banco e retorna alguma coisa baseado nos Twitches
+        TODO - Definar banco de Dados        
+        TODO - Fazer alguma coisa com os dados
+    """
     
     # Define contexto inicialmente vazio
     context = {}
@@ -58,3 +75,10 @@ def get_twitches(request):
     context['twitches'] = lista_twitches
     
     return JsonResponse(context)
+
+def servico_um(request):
+    context= {
+        'tempo_request': "20ms",
+        'ultima_requisicao': datetime.now().strftime('%H:%M:%S %d/%m/%Y')
+    }
+    return render(request,'webserver/servico1.html', context)
