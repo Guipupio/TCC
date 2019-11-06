@@ -28,6 +28,13 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+BD_INFO = {
+    'NAME': '',
+    'USER': '', 
+    'PASSWORD': '',
+    'PORT': '',
+    'HOST': ''
+    }
 # Application definition
 
 DEFAULT_APPS = [

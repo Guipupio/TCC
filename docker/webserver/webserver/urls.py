@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pod_name/', views.get_hostname, name='get_hostname'),
     path('home/', views.home_json, name='home_json'),
+    path('info_twitches/', views.get_twitches, name='info_twitches'),
     path('', views.home, name='home_page'),
     
     
