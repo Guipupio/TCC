@@ -1,21 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp-deployment
+  name: consumidor-twitches-deployment
   labels: 
-    app: webapp
+    app: consumidor-twitches
 spec:
-  replicas: 1
+  replicas: 10
   selector:
       matchLabels:
-        app: webapp
+        app: consumidor-twitches
   template:
     metadata:
       labels:
-        app: webapp
+        app: consumidor-twitches
     spec:
       containers:
-      - name: webapp
-        image: pupio/tcc:django-teste
+      - name: consumidor-twitches
+        image: pupio/tcc:consumidor-banco
         ports:
         - containerPort: 80
+        env:
+        - name: CONTAINER_NAME
+        - value: "consumidor-twitches"
