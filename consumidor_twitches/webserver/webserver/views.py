@@ -12,7 +12,7 @@ def home(request):
     context = {
         'usuario': "Guilherme Pupio"
     }
-    return render(request, 'webserver/index.html', context)
+    return render(request, 'webserver/base_generic.html', context)
 
 def get_hostname(request, auxiliar_request=False):
     RAM_INFO = os.popen('free -t -m -h | grep Mem:').readlines()[0]
