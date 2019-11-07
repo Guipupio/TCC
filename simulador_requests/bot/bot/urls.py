@@ -19,5 +19,5 @@ from bot import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('simula_requests', views.simula_request, name="simula_request")
+    path('simula_requests/', views.simula_request, name="simula_request")
 ]
