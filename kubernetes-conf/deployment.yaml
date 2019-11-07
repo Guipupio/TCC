@@ -16,9 +16,6 @@ spec:
     spec:
       containers:
       - name: consumidor-twitches
-        image: pupio/tcc:consumidor-banco
+        image: pupio/tcc:consumidor-twitches
         ports:
         - containerPort: 80
-        env:
-        - name: CONTAINER_NAME
-        - value: "consumidor-twitches"
