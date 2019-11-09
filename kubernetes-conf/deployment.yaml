@@ -19,3 +19,26 @@ spec:
         image: pupio/tcc:consumidor-twitches
         ports:
         - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bot-simulador-requests-deployment
+  labels: 
+    app: bot-simulador-requests
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: bot-simulador-requests
+  template:
+    metadata:
+      labels:
+        app: bot-simulador-requests
+    spec:
+      containers:
+      - name: bot-simulador-requests
+        image: pupio/tcc:bot-simulador-requests
+        ports:
+        - containerPort: 80
