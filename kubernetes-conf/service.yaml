@@ -10,3 +10,18 @@ spec:
   - port: 80
   selector:
     app: consumidor-twitches
+  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bot-simulador-requests-svc
+  labels:
+    app: bot-simulador-requests
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: bot-simulador-requests
+  
