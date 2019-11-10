@@ -23,7 +23,7 @@ def realiza_request(host: str, pagina:str):
     sleep(0.001)
     
     prefixo_url = 'http://'
-    pagina = "/info_twitches"
+    pagina = "/info_twitches/"
     
     # Realiza Request
     response = requests.get(prefixo_url + host + pagina)
@@ -35,6 +35,7 @@ def realiza_request(host: str, pagina:str):
 
 def get_ip(servico:str, type_service: str = "clusterIP") -> str:
     
+    # kubectl get services/consumidor-twitches-svc -o go-template='{{index .spec.ClusterIP}}'
     commando = "kubectl get services/{servico} -o go-template='{abre_chaves}(index .spec.{type_service}){fecha_chaves}'".format(servico=servico, type_service=type_service, abre_chaves= '{{',
 fecha_chaves= '}}')
     
