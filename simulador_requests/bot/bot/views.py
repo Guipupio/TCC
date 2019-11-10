@@ -1,10 +1,11 @@
 import os
-from time import time, sleep
-from django.http import JsonResponse
- 
-import numpy as np
+from time import sleep, time
 
+import numpy as np
+import redis
 import requests
+from django.http import JsonResponse
+
 
 # Decorador para obter tempo de resposta das funcoes
 def get_tempo_exec(func):
@@ -36,11 +37,15 @@ def realiza_request(host: str, pagina:str):
 def get_ip(servico:str, type_service: str = "clusterIP") -> str:
     
     # kubectl get services/consumidor-twitches-svc -o go-template='{{index .spec.ClusterIP}}'
-    commando = "kubectl get services/{servico} -o go-template='{abre_chaves}(index .spec.{type_service}){fecha_chaves}'".format(servico=servico, type_service=type_service, abre_chaves= '{{',
-fecha_chaves= '}}')
+    # Conecta no Banco
+    r = redis.Redis(host='10.111.168.116')
+    ip = r.get("CONSUMIDOR_BD_IP")
+    
+    # Cancela Conexao com DB
+    del r
     
     # obtem IP do servico desejado
-    return os.popen(commando).read()
+    return ip
         
 def simula_request(request):
     
