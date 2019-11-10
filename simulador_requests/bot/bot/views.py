@@ -39,7 +39,7 @@ def get_ip(servico:str, type_service: str = "clusterIP") -> str:
     # kubectl get services/consumidor-twitches-svc -o go-template='{{index .spec.ClusterIP}}'
     # Conecta no Banco
     r = redis.Redis(host='10.111.168.116')
-    ip = r.get("CONSUMIDOR_BD_IP")
+    ip = r.get("CONSUMIDOR_BD_IP").decode('utf8')
     
     # Cancela Conexao com DB
     del r
