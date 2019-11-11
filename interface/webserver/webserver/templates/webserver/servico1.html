@@ -11,14 +11,14 @@
     <div class="col-md-6 stretch-card grid-margin">
       <div class="card bg-gradient-danger card-img-holder text-white">
         <div class="card-body">
-          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-          <h4 class="font-weight-normal mb-3" style="text-align: center">Aplicação Saudável <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-          </h4>
+          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" onclick="post_servico_saudavel()" style="cursor: pointer" />
+          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação Saudável <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+          </h3>
           <span></span>
           <h6 class="card-text">Tempo médio de requisição</h6>
-          <h2 class="mb-5" id="tempo_medio_resposta_saudavel">{{tempo_request}}</h2>
+          <h2 class="mb-5" id="tempo_medio_resposta_saudavel">{{tempo_request_saudavel}}</h2>
           <h6 class="card-text">Última requisição</h6>
-          <span> {{ultima_requisicao}} </span>
+          <span id="ultima_requisicao_saudavel"> {{ultima_requisicao_saudavel}} </span>
         </div>
       </div>
     </div>
@@ -26,14 +26,14 @@
     <div class="col-md-6 stretch-card grid-margin">
       <div class="card bg-gradient-danger card-img-holder text-white">
         <div class="card-body">
-          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
-          <h4 class="font-weight-normal mb-3" style="text-align: center">Aplicação Controlada <i class="mdi mdi-chart-line mdi-24px float-right"></i>
-          </h4>
+          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>
+          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação Controlada <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+          </h3>
           <span></span>
           <h6 class="card-text">Tempo médio de requisição</h6>
-          <h2 class="mb-5" id="tempo_medio_resposta_chaos">{{tempo_request}}</h2>
+          <h2 class="mb-5" id="tempo_medio_resposta_chaos">{{tempo_request_chaos}}</h2>
           <h6 class="card-text">Última requisição</h6>
-          <span> {{ultima_requisicao}} </span>
+          <span id="ultima_requisicao_chaos"> {{ultima_requisicao_chaos}} </span>
         </div>
       </div>
     </div>
@@ -41,3 +41,12 @@
   </div>
 
 {% endblock %}
+
+{% block additional_script %}
+  <script src="{% static 'assets/js/webserver/servico1.js' %}"></script>
+
+  <script>
+    var url_servico_saudavel = "{% url 'servico_saudavel' %}";
+    var resultado = ""
+  </script>
+{% endblock additional_script %}

@@ -77,7 +77,7 @@ def get_twitches(request):
     
     return JsonResponse(context)
 
-def servico_um(request):
+def servico_saudavel(request):
     context= {
         'tempo_request': "20ms",
         'ultima_requisicao': datetime.now().strftime('%H:%M:%S %d/%m/%Y')
