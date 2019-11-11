@@ -67,7 +67,7 @@ def get_twitches(request):
     # Estabelece Conexao com banco de Dados
     connection = conecta_com_mysql(host=BD_INFO['HOST'], database=BD_INFO['NAME'], user=BD_INFO['USER'], password=BD_INFO['PASSWORD'])
     # Obtem lista de twitches armazendas no BD
-    lista_twitches = obtem_lista_twitches(connection)
+    lista_twitches = obtem_lista_twitches(connection, numero_informacoes=500)
     
     # Caso o usuario deseje um status do POD
     if _request.get('infos_pod', False):
