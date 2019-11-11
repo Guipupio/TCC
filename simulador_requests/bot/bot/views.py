@@ -21,7 +21,6 @@ def get_tempo_exec(func):
 
 @get_tempo_exec
 def realiza_request(host: str, pagina:str):
-    sleep(0.001)
     
     prefixo_url = 'http://'
     pagina = "/info_twitches/"
@@ -60,5 +59,22 @@ def simula_request(request):
     
     # Realiza Request
     lista_tempos = list(map(lambda x: realiza_request(host=ip_servico, pagina=pagina), list(range(n_iteracoes))))
+    np_lista_info = np.array(lista_tempos)
     
-    return JsonResponse({'tempo_medio': np.array(lista_tempos)[:,0].mean()})
+    # Obtem a lista de status
+    response_status = np_lista_info[:,0]
+    total_requests = len(response_status)
+        
+    y = np.bincount(response_status)
+    ii = np.nonzero(y)[0]
+    
+    # Agrupa status com sua ocorrencia
+    ocorrencia_status = list(zip(ii,y[ii]))
+ 
+    dict_status = {conjunto[0]: str(conjunto[1]*100/total_requests) + "%" for conjunto in ocorrencia_status}
+        
+    output = {
+        'Tempo_medio_por_request': np_lista_info[:,1].mean(),
+        'Ocorrencia_status_code': dict_status
+    }
+    return JsonResponse({'tempo_medio': np_lista_info[:,1].mean()})
