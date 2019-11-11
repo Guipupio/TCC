@@ -44,7 +44,7 @@ def get_ip(servico:str, type_service: str = "clusterIP") -> str:
     del r
     
     # obtem IP do servico desejado
-    return ip
+    return str(ip)
         
 def simula_request(request):
     
