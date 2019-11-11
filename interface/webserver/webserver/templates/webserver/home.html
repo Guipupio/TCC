@@ -1,0 +1,60 @@
+{% extends 'webserver/base_generic.html' %}
+{% load static %}
+
+{% block page_name %}
+  Home
+{% endblock page_name %}
+
+{% block main %}
+
+  <div class="row">
+    <div class="col stretch-card grid-margin">
+      <div class="card bg-gradient-danger card-img-holder text-white">
+        <div class="card-body">
+            <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+            <h4 class="font-weight-normal mb-3" style="text-align: center">Sobre <i class="mdi mdi-book-open-page-variant mdi-24px float-right"></i>
+            </h4>
+            <span></span>
+            <h5>
+                <a href="https://github.com/Guipupio/TCC" class="nav-link">
+                    <i class="mdi mdi-github-circle"></i>
+                    <span class="card-text">
+                        Projeto Git
+                    </span>
+                </a>
+            </h5>
+            <h5>
+                <a href="https://github.com/Guipupio/TCC" class="nav-link">
+                    <i class="mdi mdi-library-books"></i>
+                    <span class="card-text">
+                        Trabalho de Conclusão de Curso
+                    </span>
+                </a>
+            </h5>                    
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="row">
+        <div class="col stretch-card grid-margin">
+            <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                    <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3" style="text-align: center">Desenvolvedores <i class="mdi mdi-account-multiple mdi-24px float-right"></i>
+                    </h4>
+                    <span></span>
+                        <p class="card-text">
+                            Aluno: Guilherme Pupio
+                        </p>
+                        <p class="card-text">
+                            Aluno: Paulo Mulotto
+                        </p>
+                        <p class="card-text">
+                            Orientadora: Profª Dr. Eliane Martins
+                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}
