@@ -24,7 +24,8 @@ def home(request):
     context = {
         'usuario': "Guilherme Pupio"
     }
-    return render(request, 'webserver/base_generic.html', context)
+    return JsonResponse({'Sobre':"API com funcao de consumir os twitts presentes no banco",
+                         "Autores": ["Guilherme Pupio", "Paulo Mulotto"]})
 
 def get_hostname(request, auxiliar_request=False):
     RAM_INFO = os.popen('free -t -m -h | grep Mem:').readlines()[0]
