@@ -1,9 +1,10 @@
 import mysql.connector 
+from webserver.settings import BD_INFO
 
 dict_tabela_campos = {
-    '': '', # Nome da tabela : Campos da tabela 
+    'twitters': '*', # Nome da tabela : Campos da tabela , LIMIT
 }
-QUERY_CONSULTA_TWITTER = "SELECT {campos} from {tabela}"
+QUERY_CONSULTA_TWITTER = "SELECT {campos} from {tabela} LIMIT {LIMIT}"
 
 def conecta_com_mysql(host: str, database: str, user: str, password: str):
     """
@@ -22,7 +23,7 @@ def conecta_com_mysql(host: str, database: str, user: str, password: str):
         print("OPS: {}".format(erro))    
     return None
     
-def obtem_lista_twitches(connection):
+def obtem_lista_twitches(connection, numero_informacoes: int):
     # Lista de constantes que criara o arquivo de constantes.
     lista_twitches = []
     if connection is not None and connection.is_connected():
@@ -32,7 +33,7 @@ def obtem_lista_twitches(connection):
 
         for tabela, campos in dict_tabela_campos.items():
             # Realiza query para obter as informacoes desejadas do BD
-            cursor.execute(QUERY_CONSULTA_TWITTER.format(campos=campos, tabela=tabela))
+            cursor.execute(QUERY_CONSULTA_TWITTER.format(campos=campos, tabela=tabela,LIMIT=numero_informacoes))
             # Obtem a lista onde cada elemento é uma linha do BD
             dados = cursor.fetchall()
             # Adicionamos à nossa lista de informacoes
@@ -43,3 +44,10 @@ def obtem_lista_twitches(connection):
         connection.close()
     
     return lista_twitches
+
+
+def obtem_dados_twitter(numero_informacoes: int = 500):
+    # Gera conexao:
+    connection = conecta_com_mysql(host=BD_INFO['HOST'], database=BD_INFO['NAME'], user=BD_INFO['USER'], password=BD_INFO['PASSWORD'])
+    
+    return obtem_lista_twitches(connection, numero_informacoes=numero_informacoes)[0]
