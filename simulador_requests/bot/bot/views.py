@@ -75,4 +75,4 @@ def simula_request(request):
         'Tempo_medio_por_request': np_lista_info[:,1].mean(),
         'Ocorrencia_status_code': dict_status
     }
-    return JsonResponse({'tempo_medio': np_lista_info[:,1].mean()})
+    return JsonResponse(output)
