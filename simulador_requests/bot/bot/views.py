@@ -50,8 +50,12 @@ def get_ip(servico:str, type_service: str = "clusterIP") -> str:
 def simula_request(request):
     
     _request = request.GET if request.method == "GET" else request.POST
-    
-    n_iteracoes = _request.get("num_iteracoes", 1000)
+    warning = {}
+    try:
+        n_iteracoes = int(_request.get("num_iteracoes", 1000))
+    except Exception as error:
+        warning['ERRO-NUM_INTERACOES'] = str(error)
+        n_iteracoes = 100
     # Obtem IP do servico 1
     ip_servico = get_ip(servico="consumidor-twitches-svc")
     
@@ -73,6 +77,8 @@ def simula_request(request):
         
     output = {
         'Tempo_medio_por_request': np_lista_info[:,1].mean(),
-        'Ocorrencia_status_code': dict_status
+        'Ocorrencia_status_code': dict_status,
+        'Numero_Requisicoes': n_iteracoes,
+        'warnings': warning
     }
     return JsonResponse(output)
