@@ -13,7 +13,7 @@ def home(request):
     context = {
         'usuario': "Guilherme Pupio"
     }
-    return render(request, 'webserver/base_generic.html', context)
+    return render(request, 'webserver/home.html', context)
 
 def servico_um(request):
     context= {
