@@ -5,6 +5,7 @@ import numpy as np
 import redis
 import requests
 from django.http import JsonResponse
+from collections import Counter
 
 
 # Decorador para obter tempo de resposta das funcoes
@@ -64,14 +65,11 @@ def simula_request(request):
     # Obtem a lista de status
     response_status = np_lista_info[:,0]
     total_requests = len(response_status)
-        
-    y = np.bincount(response_status)
-    ii = np.nonzero(y)[0]
     
     # Agrupa status com sua ocorrencia
-    ocorrencia_status = list(zip(ii,y[ii]))
+    ocorrencia_status = dict(Counter(response_status))
  
-    dict_status = {conjunto[0]: str(conjunto[1]*100/total_requests) + "%" for conjunto in ocorrencia_status}
+    dict_status = {str(int(status)): str(count*100/total_requests) + "%" for status, count in ocorrencia_status.items()}
         
     output = {
         'Tempo_medio_por_request': np_lista_info[:,1].mean(),
