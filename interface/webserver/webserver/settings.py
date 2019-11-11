@@ -29,11 +29,11 @@ ALLOWED_HOSTS = ['*']
 
 
 BD_INFO = {
-    'NAME': 'twitter1',
-    'USER': 'root', 
-    'PASSWORD': 'abc@123',
-    'PORT': '3306',
-    'HOST': '35.202.223.65'
+    'NAME': '',
+    'USER': '', 
+    'PASSWORD': '',
+    'PORT': '',
+    'HOST': ''
     }
 # Application definition
 
