@@ -24,4 +24,16 @@ spec:
   - port: 80
   selector:
     app: bot-simulador-requests
-  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: twitter-api-kafka-svc
+  labels:
+    app: twitter-api-kafka
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: twitter-api-kafka
