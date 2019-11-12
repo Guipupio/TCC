@@ -42,3 +42,26 @@ spec:
         image: pupio/tcc:bot-simulador-requests
         ports:
         - containerPort: 80
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: twitter-api-kafka-deployment
+  labels: 
+    app: twitter-api-kafka
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: twitter-api-kafka
+  template:
+    metadata:
+      labels:
+        app: twitter-api-kafka
+    spec:
+      containers:
+      - name: twitter-api-kafka
+        image: pupio/tcc:twitter-api-kafka
+        ports:
+        - containerPort: 80
