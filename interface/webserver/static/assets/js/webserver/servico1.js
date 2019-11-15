@@ -1,16 +1,24 @@
 function post_servico_saudavel() {
-    var csrftoken = getCookie('csrftoken');
     $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: url_servico_saudavel,
-        data: {
-            csrfmiddlewaretoken: csrftoken
-        },
+        data: {},
         success: function (response) {
             resultado = response;
             $("#ultima_requisicao_saudavel").text(resultado.ultima_requisicao_saudavel);
-            $("#ultima_requisicao_chaos").text(resultado.ultima_requisicao_chaos);
             $("#tempo_request_saudavel").text(resultado.tempo_request_saudavel);
+        }
+    });
+}
+
+function post_servico_teste() {
+    $.ajax({
+        type: 'GET',
+        url: url_servico_teste,
+        data: {},
+        success: function (response) {
+            resultado = response;
+            $("#ultima_requisicao_chaos").text(resultado.ultima_requisicao_chaos);
             $("#tempo_request_chaos").text(resultado.tempo_request_chaos);
         }
     });
