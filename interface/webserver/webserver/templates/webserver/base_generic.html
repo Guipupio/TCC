@@ -22,6 +22,7 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/custom_style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
 
@@ -34,10 +35,10 @@
   <body>
     <div class="container-scroller">
       <!-- partial:{% static 'partials/_navbar.html -->
-      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
-        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-          <a class="navbar-brand brand-logo" href="../../index.html"><img src="{% static 'assets/images/logo.png' %}" alt="logo" /></a>
-          <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="{% static 'assets/images/logo-mini.png' %}" alt="logo" /></a>
+      <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row fundo-roxo">
+        <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center fundo-roxo">
+          <a class="navbar-brand brand-logo" href="../../index.html"><!--img src="{% static 'assets/images/logo.png' %}" alt="logo" /--></a>
+          <a class="navbar-brand brand-logo-mini" href="../../index.html"><!--img src="{% static 'assets/images/logo-mini.png' %}" alt="logo" /--></a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-stretch">
           <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -66,7 +67,7 @@
       <!-- partial -->
       <div class="container-fluid page-body-wrapper">
         <!-- partial:{% static 'partials/_sidebar.html -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <nav class="sidebar sidebar-offcanvas fundo-roxo" id="sidebar">
           <ul class="nav">
             <li class="nav-item nav-profile">
               <a href="#" class="nav-link">
@@ -117,7 +118,7 @@
           </ul>
         </nav>
         <!-- partial -->
-        <div class="main-panel">
+        <div class="main-panel fundo-roxo-claro">
           <div class="content-wrapper p-3 has-inner-drawer">
             <div class="page-header">
               <h3 class="page-title">
