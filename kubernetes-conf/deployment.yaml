@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: consumidor-twitches
 spec:
-  replicas: 10
+  replicas: 1
   selector:
       matchLabels:
         app: consumidor-twitches
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: consumidor-twitches
-        image: pupio/tcc:consumidor-twitches
+        image: pupio/tcc:consumidor-twitches-insercao
         ports:
         - containerPort: 80
 ---
@@ -27,7 +27,7 @@ metadata:
   labels: 
     app: chaos-consumidor-twitches
 spec:
-  replicas: 10
+  replicas: 1
   selector:
       matchLabels:
         app: chaos-consumidor-twitches
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: chaos-consumidor-twitches
-        image: pupio/tcc:consumidor-twitches
+        image: pupio/tcc:consumidor-twitches-insercao
         ports:
         - containerPort: 80
 ---
