@@ -40,15 +40,15 @@ def home(request):
     }
     return render(request, 'webserver/home.html', context)
 
-def requsicao_servico_teste(servico):
+def requsicao_servico(servico):
     parametros = { 'servico': servico }
     ip = get_ip("SIMULADOR_REQUESTS")
     return realiza_request(host=ip, parametros=parametros)
 
-def gera_contexto(sufixo: str):
+def gera_contexto(sufixo: str, servico: str) -> dict:
     context = {}
     try:
-        response = requsicao_servico_teste(servico="teste")
+        response = requsicao_servico(servico=servico)
         dict_response = json.loads(response.content)
         context['tempo_medio_resposta_' + sufixo] = "{0:.2}ms".format(dict_response['Tempo_medio_por_request']*1000)
         context['numero_requisicoes_realizadas_' + sufixo]= dict_response['Numero_Requisicoes']
@@ -73,7 +73,7 @@ def servico_saudavel(request):
     """
         Realiza request em servico saudavel
     """
-    context = gera_contexto("saudavel")
+    context = gera_contexto("saudavel", servico="producao")
     return JsonResponse(context)
 
 def servico_teste(request):
@@ -81,7 +81,7 @@ def servico_teste(request):
         Realiza request em servico de teste
     """
     
-    context = context = gera_contexto("chaos")
+    context = gera_contexto("chaos", servico="teste")
     return JsonResponse(context)
 
 
@@ -98,4 +98,4 @@ def render_status_servico(request):
 
 
 # COmando para obter nome dos pods 
-# kubectl get pods -o wide | grep -E -o "(consumidor-twitches-deployment-)[a-z0-9]{10}-[a-z0-9]{5}"
+# kubectl get pods -o wide | grep -E -o "(chaos-consumidor-twitches-deployment-)[a-z0-9]{10}-[a-z0-9]{5}"
