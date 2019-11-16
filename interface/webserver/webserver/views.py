@@ -45,18 +45,36 @@ def requsicao_servico_teste(servico):
     ip = get_ip("SIMULADOR_REQUESTS")
     return realiza_request(host=ip)
 
+def gera_contexto(sufixo: str):
+    context = {}
+    try:
+        raise ValueError
+        response = requsicao_servico_teste(servico="teste")
+        dict_response = json.loads(response.content)
+        context['tempo_medio_resposta_' + sufixo] = "{0:.2}ms".format(dict_response['Tempo_medio_por_request']*1000)
+        context['numero_requisicoes_realizadas_' + sufixo]= dict_response['Numero_Requisicoes']
+        
+        if "200" in dict_response['Ocorrencia_status_code'].keys():
+            context['numero_requisicoes_bem_sucedidas_' + sufixo]= dict_response['Ocorrencia_status_code']
+        else:
+            context['numero_requisicoes_bem_sucedidas_' + sufixo]=0
+            
+    except Exception:
+        context['tempo_medio_resposta_' + sufixo] = "---"
+        context['numero_requisicoes_realizadas_' + sufixo]= 0
+        context['numero_requisicoes_bem_sucedidas_' + sufixo]= 0
+        
+    
+    context['ultima_requisicao_' + sufixo]= datetime.now().strftime('%H:%M:%S %d/%m/%Y')
+    
+    return context
+    
+
 def servico_saudavel(request):
     """
         Realiza request em servico saudavel
     """
-    context = {}
-    try:
-        response = requsicao_servico_teste(servico="teste")
-        context['tempo_request_saudavel'] = json.loads(response.content)['Tempo_medio_por_request']
-    except Exception:
-        context['tempo_request_saudavel'] = "---"
-    
-    context['ultima_requisicao_saudavel']= datetime.now().strftime('%H:%M:%S %d/%m/%Y')
+    context = gera_contexto("saudavel")
     return JsonResponse(context)
 
 def servico_teste(request):
@@ -64,22 +82,15 @@ def servico_teste(request):
         Realiza request em servico de teste
     """
     
-    context = {}
-    try:
-        response = requsicao_servico_teste(servico="teste")
-        context['tempo_request_chaos'] = json.loads(response.content)['Tempo_medio_por_request']
-    except Exception:
-        context['tempo_request_chaos'] = "---"
-    
-    context['ultima_requisicao_chaos']= datetime.now().strftime('%H:%M:%S %d/%m/%Y')
+    context = context = gera_contexto("chaos")
     return JsonResponse(context)
 
 
 def render_status_servico(request):
     
     context= {
-        'tempo_request_saudavel': "---ms",
-        'tempo_request_chaos': "---ms",
+        'tempo_medio_resposta_saudavel': "---ms",
+        'tempo_medio_resposta_chaos': "---ms",
         'ultima_requisicao_saudavel': datetime.now().strftime('%H:%M:%S %d/%m/%Y'),
         'ultima_requisicao_chaos': datetime.now().strftime('%H:%M:%S %d/%m/%Y')
     }

@@ -6,7 +6,9 @@ function post_servico_saudavel() {
         success: function (response) {
             resultado = response;
             $("#ultima_requisicao_saudavel").text(resultado.ultima_requisicao_saudavel);
-            $("#tempo_medio_request_saudavel").text(resultado.tempo_request_saudavel);
+            $("#tempo_medio_resposta_saudavel").text(resultado.tempo_medio_resposta_saudavel);
+            $("#numero_requisicoes_realizadas_saudavel").text(resultado.numero_requisicoes_realizadas_saudavel);
+            $("#numero_requisicoes_bem_sucedidas_saudavel").text(resultado.numero_requisicoes_bem_sucedidas_saudavel);
         }
     });
 }
@@ -19,7 +21,9 @@ function post_servico_teste() {
         success: function (response) {
             resultado = response;
             $("#ultima_requisicao_chaos").text(resultado.ultima_requisicao_chaos);
-            $("#tempo_medio_request_chaos").text(resultado.tempo_request_chaos);
+            $("#tempo_medio_resposta_chaos").text(resultado.tempo_medio_resposta_chaos);
+            $("#numero_requisicoes_realizadas_chaos").text(resultado.numero_requisicoes_realizadas_chaos);
+            $("#numero_requisicoes_bem_sucedidas_chaos").text(resultado.numero_requisicoes_bem_sucedidas_chaos);
         }
     });
 }
