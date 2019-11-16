@@ -54,7 +54,7 @@ def gera_contexto(sufixo: str):
         context['numero_requisicoes_realizadas_' + sufixo]= dict_response['Numero_Requisicoes']
         
         if "200" in dict_response['Ocorrencia_status_code'].keys():
-            context['numero_requisicoes_bem_sucedidas_' + sufixo]= dict_response['Ocorrencia_status_code']
+            context['numero_requisicoes_bem_sucedidas_' + sufixo]= dict_response['Ocorrencia_status_code']["200"]
         else:
             context['numero_requisicoes_bem_sucedidas_' + sufixo]=0
             
