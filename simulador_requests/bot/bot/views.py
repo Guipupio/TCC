@@ -64,7 +64,7 @@ def simula_request(request):
     ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])
     
     # Define pagina acessada
-    pagina = _request.get("pagina", '')
+    pagina = _request.get("pagina", '/info_twitches/')
     
     # Realiza Request
     lista_tempos = list(map(lambda x: realiza_request(host=ip_servico, pagina=pagina), list(range(n_iteracoes))))
@@ -83,6 +83,7 @@ def simula_request(request):
         'Tempo_medio_por_request': np_lista_info[:,1].mean(),
         'Ocorrencia_status_code': dict_status,
         'Numero_Requisicoes': n_iteracoes,
-        'warnings': warning
+        'warnings': warning,
+        'servico_requisitado': servico
     }
     return JsonResponse(output)
