@@ -23,6 +23,28 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: chaos-consumidor-twitches-deployment
+  labels: 
+    app: chaos-consumidor-twitches
+spec:
+  replicas: 10
+  selector:
+      matchLabels:
+        app: chaos-consumidor-twitches
+  template:
+    metadata:
+      labels:
+        app: chaos-consumidor-twitches
+    spec:
+      containers:
+      - name: chaos-consumidor-twitches
+        image: pupio/tcc:consumidor-twitches
+        ports:
+        - containerPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: twitter-api-kafka-deployment
   labels: 
     app: twitter-api-kafka

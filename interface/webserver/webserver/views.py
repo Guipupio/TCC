@@ -43,7 +43,7 @@ def home(request):
 def requsicao_servico_teste(servico):
     parametros = { 'servico': servico }
     ip = get_ip("SIMULADOR_REQUESTS")
-    return realiza_request(host=ip)
+    return realiza_request(host=ip, parametros)
 
 def gera_contexto(sufixo: str):
     context = {}

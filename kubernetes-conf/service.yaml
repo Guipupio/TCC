@@ -10,6 +10,19 @@ spec:
   - port: 80
   selector:
     app: consumidor-twitches
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chaos-consumidor-twitches-svc
+  labels:
+    app: chaos-consumidor-twitches
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+  selector:
+    app: chaos-consumidor-twitches
   
 ---
 apiVersion: v1
