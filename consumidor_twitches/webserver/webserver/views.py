@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from webserver.settings import BD_INFO
 
 from webserver.connect_db_twitter import conecta_com_mysql, obtem_lista_twitches
+import socket
 
 # Decorador para obter tempo de resposta das funcoes
 def get_tempo_exec(func):
@@ -33,7 +34,7 @@ def get_hostname(request, auxiliar_request=False):
     
     # Tenta obter hostname
     try:
-        hostname = os.environ['HOSTNAME']
+        hostname = socket.gethostname()
     except KeyError:
         hostname = list(os.environ.keys())
     infos = {
