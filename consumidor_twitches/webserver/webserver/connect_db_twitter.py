@@ -4,7 +4,14 @@ from webserver.settings import BD_INFO
 dict_tabela_campos = {
     'twitters': '*', # Nome da tabela : Campos da tabela , LIMIT
 }
+
+dict_tabela_update = {
+    'TB_INFO_POD': '*', # Nome da tabela : Campos da tabela , LIMIT
+}
+
+
 QUERY_CONSULTA_TWITTER = "SELECT {campos} from {tabela} LIMIT {LIMIT}"
+QUERY_INSERT_REGISTER = "INSERT INTO {tabela} (nome_pod) VALUES ('{campos}')"
 
 def conecta_com_mysql(host: str, database: str, user: str, password: str):
     """
@@ -36,8 +43,14 @@ def obtem_lista_twitches(connection, numero_informacoes: int):
             cursor.execute(QUERY_CONSULTA_TWITTER.format(campos=campos, tabela=tabela,LIMIT=numero_informacoes))
             # Obtem a lista onde cada elemento é uma linha do BD
             dados = cursor.fetchall()
+
+
             # Adicionamos à nossa lista de informacoes
             lista_twitches.append(dados)
+
+
+        # Realiza insert no banco dedados avisando que realizou uma requisição
+        cursor.execute(QUERY_INSERT_REGISTER.format(campos="os.environ['HOSTNAME']", tabela='TB_INFO_POD'))
 
         # Fecha conexao com o banco
         cursor.close()
