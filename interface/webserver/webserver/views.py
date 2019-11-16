@@ -48,7 +48,6 @@ def requsicao_servico_teste(servico):
 def gera_contexto(sufixo: str):
     context = {}
     try:
-        raise ValueError
         response = requsicao_servico_teste(servico="teste")
         dict_response = json.loads(response.content)
         context['tempo_medio_resposta_' + sufixo] = "{0:.2}ms".format(dict_response['Tempo_medio_por_request']*1000)
