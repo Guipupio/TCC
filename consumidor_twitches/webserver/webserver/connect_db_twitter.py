@@ -1,5 +1,7 @@
 import mysql.connector 
 from webserver.settings import BD_INFO
+import os
+
 
 dict_tabela_campos = {
     'twitters': '*', # Nome da tabela : Campos da tabela , LIMIT
@@ -50,7 +52,8 @@ def obtem_lista_twitches(connection, numero_informacoes: int):
 
 
         # Realiza insert no banco dedados avisando que realizou uma requisição
-        cursor.execute(QUERY_INSERT_REGISTER.format(campos="os.environ['HOSTNAME']", tabela='TB_INFO_POD'))
+
+        cursor.execute(QUERY_INSERT_REGISTER.format(campos=str(os.environ['HOSTNAME']), tabela='TB_INFO_POD'))
 
         # Fecha conexao com o banco
         cursor.close()
