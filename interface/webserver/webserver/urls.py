@@ -19,10 +19,11 @@ from webserver import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('servico1/', views.servico_saudavel, name='servico_saudavel'),
+    path('servico1/', views.render_status_servico, name='render_status_servico'),
     
     path('', views.home, name='home_page'),
-    
+    path('request_saudavel/',views.servico_saudavel, name='servico_saudavel'),
+    path('request_teste/',views.servico_teste, name='servico_teste'),
     
     
 ]

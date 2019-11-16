@@ -7,6 +7,10 @@ import requests
 from django.http import JsonResponse
 from collections import Counter
 
+dict_mapeamento_servico_ip = {
+    'producao': "CONSUMIDOR_BD_IP",
+    'teste': "CONSUMIDOR_BD_IP_TESTE"
+}
 
 # Decorador para obter tempo de resposta das funcoes
 def get_tempo_exec(func):
@@ -21,10 +25,9 @@ def get_tempo_exec(func):
     return calcula_tempo
 
 @get_tempo_exec
-def realiza_request(host: str, pagina:str):
+def realiza_request(host: str, pagina:str = "/info_twitches/"):
     
     prefixo_url = 'http://'
-    pagina = "/info_twitches/"
     
     # Realiza Request
     response = requests.get(prefixo_url + host + pagina)
@@ -34,12 +37,12 @@ def realiza_request(host: str, pagina:str):
     
 
 
-def get_ip(servico:str, type_service: str = "clusterIP") -> str:
+def get_ip(servico:str) -> str:
     
     # kubectl get services/consumidor-twitches-svc -o go-template='{{index .spec.ClusterIP}}'
     # Conecta no Banco
-    r = redis.Redis(host='10.111.168.116')
-    ip = r.get("CONSUMIDOR_BD_IP").decode('utf8')
+    r = redis.Redis(host='10.103.199.135')
+    ip = r.get(servico).decode('utf8')
     
     # Cancela Conexao com DB
     del r
@@ -52,12 +55,13 @@ def simula_request(request):
     _request = request.GET if request.method == "GET" else request.POST
     warning = {}
     try:
-        n_iteracoes = int(_request.get("num_iteracoes", 1000))
+        servico = str(_request.get("servico", "producao"))
+        n_iteracoes = int(_request.get("num_iteracoes", 1000))        
     except Exception as error:
         warning['ERRO-NUM_INTERACOES'] = str(error)
         n_iteracoes = 100
     # Obtem IP do servico 1
-    ip_servico = get_ip(servico="consumidor-twitches-svc")
+    ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])
     
     # Define pagina acessada
     pagina = _request.get("pagina", '')

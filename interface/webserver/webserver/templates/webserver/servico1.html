@@ -11,10 +11,16 @@
     <div class="col-md-6 stretch-card grid-margin">
       <div class="card bg-gradient-danger card-img-holder text-white">
         <div class="card-body">
-          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" onclick="post_servico_saudavel()" style="cursor: pointer" />
-          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação Saudável <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+          <!--<img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>-->
+          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação Saudável <i class="mdi mdi-chart-line mdi-24px float-right" onclick="post_servico_saudavel()" style=" cursor: pointer"></i>
           </h3>
+          <h6 class="card-text" id="informe_saudavel" style="text-align: center; display: none" >Requisição Iniciada!</h6>
+          <h6 class="card-text" id="informe_saudavel_ok" style="text-align: center; display: none" >OK!</h6>
           <span></span>
+          <h6 class="card-text">Numero de requisicoes realizadas</h6>
+          <h2 class="mb-5" id="numero_requisicoes_realizadas_saudavel">{{num_total_requicoes_saudavel}}</h2>
+          <h6 class="card-text">Numero de requisicoes bem sucedidas</h6>
+          <h2 class="mb-5" id="numero_requisicoes_bem_sucedidas_saudavel">{{num_requisicoes_com_sucesso_saudavel}}</h2>
           <h6 class="card-text">Tempo médio de requisição</h6>
           <h2 class="mb-5" id="tempo_medio_resposta_saudavel">{{tempo_request_saudavel}}</h2>
           <h6 class="card-text">Última requisição</h6>
@@ -26,10 +32,16 @@
     <div class="col-md-6 stretch-card grid-margin">
       <div class="card bg-gradient-danger card-img-holder text-white">
         <div class="card-body">
-          <img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image"/>
-          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação Controlada <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+          <!--<img src="{% static 'assets/images/dashboard/circle.svg' %}" class="card-img-absolute" alt="circle-image" />-->
+          <h3 class="font-weight-normal mb-3" style="text-align: center">Aplicação em Chaos <i class="mdi mdi-chart-line mdi-24px float-right" onclick="post_servico_teste()" style="cursor: pointer"></i>
           </h3>
+          <h6 class="card-text" id="informe_chaos" style="text-align: center; display: none" >Requisição Iniciada!</h6>
+          <h6 class="card-text" id="informe_chaos_ok" style="text-align: center; display: none" >OK!</h6>
           <span></span>
+          <h6 class="card-text">Numero de requisicoes realizadas</h6>
+          <h2 class="mb-5" id="numero_requisicoes_realizadas_chaos">{{num_total_requicoes_chaos}}</h2>
+          <h6 class="card-text">Numero de requisicoes bem sucedidas</h6>
+          <h2 class="mb-5" id="numero_requisicoes_bem_sucedidas_chaos">{{num_requisicoes_com_sucesso_chaos}}</h2>
           <h6 class="card-text">Tempo médio de requisição</h6>
           <h2 class="mb-5" id="tempo_medio_resposta_chaos">{{tempo_request_chaos}}</h2>
           <h6 class="card-text">Última requisição</h6>
@@ -47,6 +59,7 @@
 
   <script>
     var url_servico_saudavel = "{% url 'servico_saudavel' %}";
-    var resultado = ""
+    var url_servico_teste = "{% url 'servico_teste' %}";
+    var resultado = "";
   </script>
 {% endblock additional_script %}
