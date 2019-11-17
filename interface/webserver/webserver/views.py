@@ -50,7 +50,7 @@ def gera_contexto(sufixo: str, servico: str) -> dict:
     try:
         response = requsicao_servico(servico=servico)
         dict_response = json.loads(response.content)
-        context['tempo_medio_resposta_' + sufixo] = "{0:.2}ms".format(dict_response['Tempo_medio_por_request']*1000)
+        context['tempo_medio_resposta_' + sufixo] = "{}ms".format(dict_response['Tempo_medio_por_request']*1000)
         context['numero_requisicoes_realizadas_' + sufixo]= dict_response['Numero_Requisicoes']
         
         if "200" in dict_response['Ocorrencia_status_code'].keys():
