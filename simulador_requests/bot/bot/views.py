@@ -56,10 +56,10 @@ def simula_request(request):
     warning = {}
     try:
         servico = str(_request.get("servico", "producao"))
-        n_iteracoes = int(_request.get("num_iteracoes", 1000))        
+        n_iteracoes = int(_request.get("num_iteracoes", 10))        
     except Exception as error:
         warning['ERRO-NUM_INTERACOES'] = str(error)
-        n_iteracoes = 100
+        n_iteracoes = 10
     # Obtem IP do servico 1
     ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])
     
@@ -80,7 +80,7 @@ def simula_request(request):
     dict_status = {str(int(status)): str(count*100/total_requests) + "%" for status, count in ocorrencia_status.items()}
         
     output = {
-        'Tempo_medio_por_request': np.format_float_positional(np_lista_info[:,1].mean()),
+        'Tempo_medio_por_request': np_lista_info[:,1].mean(),
         'Ocorrencia_status_code': dict_status,
         'Numero_Requisicoes': n_iteracoes,
         'warnings': warning,
