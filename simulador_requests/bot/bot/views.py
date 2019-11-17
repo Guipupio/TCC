@@ -7,6 +7,11 @@ import requests
 from django.http import JsonResponse
 from collections import Counter
 
+import threading
+import logging, queue
+
+my_queue = queue.Queue()
+
 dict_mapeamento_servico_ip = {
     'producao': "CONSUMIDOR_BD_IP",
     'teste': "CONSUMIDOR_BD_IP_TESTE"
@@ -21,17 +26,21 @@ def get_tempo_exec(func):
 
         tempo_execucao = t_fim - t_init
         # obtem a url da pagina
+        my_queue.put((resultado, tempo_execucao))
         return (resultado, tempo_execucao)
     return calcula_tempo
 
+
+
 @get_tempo_exec
 def realiza_request(host: str, pagina:str = "/info_twitches/"):
+    # def realiza_request(host="104.155.179.191", pagina="/request_teste/"):
     
     prefixo_url = 'http://'
     
     # Realiza Request
     response = requests.get(prefixo_url + host + pagina)
-    
+
     return response.status_code
     
     
@@ -56,18 +65,37 @@ def simula_request(request):
     warning = {}
     try:
         servico = str(_request.get("servico", "producao"))
-        n_iteracoes = int(_request.get("num_iteracoes", 1000))        
+        n_iteracoes = int(_request.get("num_iteracoes", 10))        
     except Exception as error:
         warning['ERRO-NUM_INTERACOES'] = str(error)
-        n_iteracoes = 100
+        n_iteracoes = 10
+
     # Obtem IP do servico 1
     ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])
+
     
     # Define pagina acessada
     pagina = _request.get("pagina", '/info_twitches/')
     
+
     # Realiza Request
-    lista_tempos = list(map(lambda x: realiza_request(host=ip_servico, pagina=pagina), list(range(n_iteracoes))))
+    threads = list()
+    for index in range(0,n_iteracoes):
+        x = threading.Thread(target=realiza_request, args=(ip_servico, pagina))
+        threads.append(x)
+        x.start()
+
+    lista_tempos = []
+    for index, thread in enumerate(threads):
+        thread.join()
+        ret = my_queue.get()
+        lista_tempos.append(ret)
+
+    
+        
+
+
+    # lista_tempos = list(map(lambda x: realiza_request(host=ip_servico, pagina=pagina), list(range(n_iteracoes))))
     np_lista_info = np.array(lista_tempos)
     
     # Obtem a lista de status
@@ -87,3 +115,24 @@ def simula_request(request):
         'servico_requisitado': servico
     }
     return JsonResponse(output)
+
+
+
+# def main():
+#     threads = list()
+
+#     for index in range(0,100):
+#         logging.info("Main    : create and start thread %d.", index)
+#         print("entrei")
+#         x = threading.Thread(target=realiza_request)
+#         threads.append(x)
+#         x.start()
+
+#     for index, thread in enumerate(threads):
+#         logging.info("Main    : before joining thread %d.", index)
+#         thread.join()
+#         logging.info("Main    : thread %d done", index)
+
+
+# if __name__ == "__main__":
+#     main()
