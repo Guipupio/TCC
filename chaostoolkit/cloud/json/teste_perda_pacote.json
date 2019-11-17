@@ -14,7 +14,7 @@
                 "provider": {
                     "type": "process",
                     "path": "sh",
-                    "arguments": "get-info-servidor-chaos.sh"
+                    "arguments": "get-info-servidor-chaos.sh perda_pacote"
                 },
                 "pauses": {
                     "after": 5
@@ -29,7 +29,7 @@
                 "provider": {
                     "type": "process",
                     "path": "egrep",
-                    "arguments": "'[0-6][0-9]ms' status_servidor_perda_pacote.log"
+                    "arguments": "'[0-6][.][0-9][e][+][0][0-7]ms' status_servidor_perda_pacote.log"
                 }
             },
             {
@@ -41,7 +41,7 @@
                 "provider": {
                     "type": "process",
                     "path": "egrep",
-                    "arguments": "'[1]?[7-9][0-9][\\.]?[0-9]*%' status_servidor_saude_perda_pacote.log"
+                    "arguments": "'[1]?[4-9][0-9][.]?[0-9]*%' status_servidor_saude_perda_pacote.log"
                 }
             }
         ]
