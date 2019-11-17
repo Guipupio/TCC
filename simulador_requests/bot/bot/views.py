@@ -69,10 +69,10 @@ def simula_request(request):
     warning = {}
     try:
         servico = str(_request.get("servico", "producao"))
-        n_iteracoes = int(_request.get("num_iteracoes", 100))        
+        n_iteracoes = int(_request.get("num_iteracoes", 20))        
     except Exception as error:
         warning['ERRO-NUM_INTERACOES'] = str(error)
-        n_iteracoes = 100
+        n_iteracoes = 20
 
     # Obtem IP do servico 1
     ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])

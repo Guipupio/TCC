@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: bot-simulador-requests
-        image: pupio/tcc:bot-simulador-requests-v14
+        image: pupio/tcc:bot-simulador-requests-v15
         ports:
         - containerPort: 80
