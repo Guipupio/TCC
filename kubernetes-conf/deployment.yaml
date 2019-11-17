@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: consumidor-twitches
-        image: pupio/tcc:consumidor-twitches-insercao-v4
+        image: pupio/tcc:consumidor-twitches-insercao-v5
         ports:
         - containerPort: 80
 ---
@@ -38,7 +38,7 @@ spec:
     spec:
       containers:
       - name: chaos-consumidor-twitches
-        image: pupio/tcc:consumidor-twitches-insercao-v4
+        image: pupio/tcc:consumidor-twitches-insercao-v5
         ports:
         - containerPort: 80
 ---
