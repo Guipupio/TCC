@@ -38,10 +38,16 @@ def realiza_request(host: str, pagina:str = "/info_twitches/"):
     
     prefixo_url = 'http://'
     
-    # Realiza Request
-    response = requests.get(prefixo_url + host + pagina)
-
-    return response.status_code
+    try:
+        # Realiza Request
+        response = requests.get(prefixo_url + host + pagina)
+        status = response.status_code
+    except Exception as erro:
+        print(erro)
+        status= 500
+        
+    
+    return status
     
     
 

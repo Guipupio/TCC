@@ -5,7 +5,7 @@ metadata:
   labels: 
     app: consumidor-twitches
 spec:
-  replicas: 1
+  replicas: 4
   selector:
       matchLabels:
         app: consumidor-twitches
@@ -27,7 +27,7 @@ metadata:
   labels: 
     app: chaos-consumidor-twitches
 spec:
-  replicas: 1
+  replicas: 4
   selector:
       matchLabels:
         app: chaos-consumidor-twitches
