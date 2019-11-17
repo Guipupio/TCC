@@ -108,7 +108,7 @@ def simula_request(request):
     dict_status = {str(int(status)): str(count*100/total_requests) + "%" for status, count in ocorrencia_status.items()}
         
     output = {
-        'Tempo_medio_por_request': np.format_float_positional(np_lista_info[:,1].mean()),
+        'Tempo_medio_por_request': np_lista_info[:,1].mean()*1000,
         'Ocorrencia_status_code': dict_status,
         'Numero_Requisicoes': n_iteracoes,
         'warnings': warning,
