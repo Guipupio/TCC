@@ -68,9 +68,6 @@ def get_twitches(request):
     # Estabelece Conexao com banco de Dados
     connection = conecta_com_mysql(host=BD_INFO['HOST'], database=BD_INFO['NAME'], user=BD_INFO['USER'], password=BD_INFO['PASSWORD'])
     
-    if connection is None:
-        return JsonResponse(status=500, data={})
-    
     # Obtem lista de twitches armazendas no BD
     lista_twitches = obtem_lista_twitches(connection, numero_informacoes=500)
     
@@ -79,6 +76,9 @@ def get_twitches(request):
         context = dict(context, **get_hostname(request,auxiliar_request=True))
     
     context['twitches'] = lista_twitches
+    
+    if connection is None:
+        return JsonResponse(status=500, data=context)
     
     return JsonResponse(context)
 
