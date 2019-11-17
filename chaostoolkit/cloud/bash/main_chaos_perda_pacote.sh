@@ -1,0 +1,1 @@
+chaos run /home/guicpupio/tcc/chaostoolkit/cloud/json/teste_perda_pacote.json

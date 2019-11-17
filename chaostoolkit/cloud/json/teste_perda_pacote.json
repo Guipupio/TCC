@@ -1,0 +1,74 @@
+{
+    "version": "1.0.0",
+    "title": "Insercao de perda de pacote em um servidor, causa danos minimos ao usuario",
+    "description": "Insere perda de pacote em um servidor e obtem o tempo medio da requisicao ",
+    "steady-state-hypothesis": {
+        "title": "Verificando Tempo de Resposta",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "Comunicando com Servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "sh",
+                    "arguments": "get-info-servidor-chaos.sh"
+                },
+                "pauses": {
+                    "after": 5
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Verifica status da resposta do servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "'[0-6][0-9]ms' status_servidor_perda_pacote.log"
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Verifica saude da resposta do servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "'[1]?[7-9][0-9][\\.]?[0-9]*%' status_servidor_saude_perda_pacote.log"
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "Insere perda de pacote",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc add dev ens4 root netem loss 25%"
+            },
+            "pauses": {
+                "after": 200
+            }
+        }
+    ],
+    "rollbacks": [
+        {
+            "type": "action",
+            "name": "Remove perda de pacote da rede",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc del dev ens4 root netem"
+            }
+        }
+    ]
+}

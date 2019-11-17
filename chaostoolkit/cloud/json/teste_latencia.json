@@ -1,0 +1,74 @@
+{
+    "version": "1.0.0",
+    "title": "Insercao de Latencia em um servidor, causa danos minimos ao usuario",
+    "description": "Insere latencia em um servidor e obtem o tempo medio da requisicao ",
+    "steady-state-hypothesis": {
+        "title": "Verificando Tempo de Resposta",
+        "probes": [
+            {
+                "type": "probe",
+                "name": "Comunicando com Servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "sh",
+                    "arguments": "get-info-servidor-chaos.sh"
+                },
+                "pauses": {
+                    "after": 5
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Verifica status da resposta do servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "'[0-6][0-9]ms' status_servidor_latencia.log"
+                }
+            },
+            {
+                "type": "probe",
+                "name": "Verifica saude da resposta do servidor",
+                "tolerance": [
+                    0
+                ],
+                "provider": {
+                    "type": "process",
+                    "path": "egrep",
+                    "arguments": "'[1]?[7-9][0-9][\\.]?[0-9]*%' status_servidor_saude_latencia.log"
+                }
+            }
+        ]
+    },
+    "method": [
+        {
+            "type": "action",
+            "name": "Insere Latencia",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc add dev ens4 root netem delay 700ms"
+            },
+            "pauses": {
+                "after": 200
+            }
+        }
+    ],
+    "rollbacks": [
+        {
+            "type": "action",
+            "name": "Remove latencia da rede",
+            "provider": {
+                "type": "process",
+                "path": "tc",
+                "arguments": "qdisc del dev ens4 root netem"
+            }
+        }
+    ]
+}
