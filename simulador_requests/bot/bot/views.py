@@ -45,8 +45,6 @@ def realiza_request(host: str, pagina:str = "/info_twitches/"):
     except Exception as erro:
         print(erro)
         status= 500
-        
-    
     return status
     
     
@@ -71,10 +69,10 @@ def simula_request(request):
     warning = {}
     try:
         servico = str(_request.get("servico", "producao"))
-        n_iteracoes = int(_request.get("num_iteracoes", 1000))        
+        n_iteracoes = int(_request.get("num_iteracoes", 100))        
     except Exception as error:
         warning['ERRO-NUM_INTERACOES'] = str(error)
-        n_iteracoes = 1000
+        n_iteracoes = 100
 
     # Obtem IP do servico 1
     ip_servico = get_ip(servico=dict_mapeamento_servico_ip[servico])
